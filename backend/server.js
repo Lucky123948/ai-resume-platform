@@ -2,8 +2,15 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const connectDB = require("./db");
-connectDB();
 const express = require("express");
+
+const app = express();
+
+// Serverless DB Connection Middleware
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
 const cors = require("cors");
 const multer = require("multer");
 const fs = require("fs");
@@ -49,7 +56,6 @@ async function sendOTPEmail(email, otp) {
 // Helper to generate 6-digit OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 
