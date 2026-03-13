@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Resume</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="welcome-container" style="height: 100vh;">
+    <div class="card" style="width: 100%; max-width: 400px;">
+      <h2 class="text-gradient" style="margin-bottom: 20px;">Upload Resume & Job</h2>
+
+      <label style="display:block; text-align:left; color: var(--text-muted); margin-bottom: 5px;">Resume (PDF)</label>
+      <input type="file" id="resume">
+
+      <label style="display:block; text-align:left; color: var(--text-muted); margin-bottom: 5px;">Job Description
+        (PDF)</label>
+      <input type="file" id="job">
+
+      <button class="primary-btn" style="width: 100%; margin-top: 10px;" onclick="analyzeResume()">Analyze Resume
+        🚀</button>
+    </div>
+  </div>
+
+  <script>
+    async function analyzeResume() {
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login again");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const resumeFile = document.getElementById("resume").files[0];
+      const jobFile = document.getElementById("job").files[0];
+
+      if (!resumeFile || !jobFile) {
+        alert("Upload both Resume and Job Description PDF");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("resume", resumeFile);
+      formData.append("job", jobFile);
+
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token
+          },
+          body: formData
+        });
+
+        if (!res.ok) throw new Error("AI failed");
+
+        const data = await res.json();
+
+        // store result for dashboard
+        localStorage.setItem("analysisResult", JSON.stringify(data));
+
+        // go to dashboard
+        window.location.href = "student-dashboard.html";
+
+      } catch (err) {
+        console.error(err);
+        alert("Backend failed");
+      }
+    }
+  </script>
+
+</body>
+
+</html>

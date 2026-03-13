@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="dash-header">
+    <h2>Admin Dashboard</h2>
+  </div>
+
+  <button onclick="loadUsers()">View Users</button>
+  <button onclick="loadAnalysis()">View Analysis</button>
+  <button onclick="loadShortlist()">View Shortlisted</button>
+
+  <div class="card">
+    <h3>Data</h3>
+    <pre id="output">Click a button to load data</pre>
+  </div>
+
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Placement Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <div class="dash-header">
+      <h2>Placement Coordinator Dashboard</h2>
+      <button class="primary-btn" onclick="downloadStudentData()" style="background-color: #10b981;">
+        📥 Download Student Data (Excel)
+      </button>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="card">
+      <h3>Upload Student Excel</h3>
+      <input type="file" id="excel" accept=".xlsx,.xls">
+    </div>
+
+    <div class="card">
+      <h3>Upload Job Description (PDF)</h3>
+      <input type="file" id="job" accept=".pdf">
+    </div>
+
+    <button class="primary-btn" onclick="analyzePlacement()">
+      Analyze Candidates
+    </button>
+
+    <!-- Result Table -->
+    <div class="card">
+      <h3>Matched Candidates</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Match %</th>
+          </tr>
+        </thead>
+        <tbody id="resultTable">
+          <tr>
+            <td colspan="2" style="text-align:center">
+              No data yet
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="placement.js"></script>
+</body>
+
+</html>

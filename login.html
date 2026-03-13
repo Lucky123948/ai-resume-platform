@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="login-wrapper">
+
+    <!-- STUDENT -->
+    <div class="login-card" id="card-student">
+      <div class="icon-circle">🎓</div>
+      <h3>Student Login</h3>
+
+      <div id="login-form-student">
+        <input id="studentEmail" type="email" placeholder="Email">
+        <input id="studentPassword" type="password" placeholder="Password">
+        <a class="forgot">Forgot password?</a>
+        <button class="login-btn" onclick="loginUser('student')">Login</button>
+      </div>
+
+      <div id="otp-form-student" style="display: none;">
+        <p style="color:var(--text-muted); font-size:0.9rem;">Enter OTP sent to email</p>
+        <input id="otp-input-student" type="text" placeholder="6-digit OTP"
+          style="text-align:center; letter-spacing:3px;">
+        <button class="login-btn" onclick="verifyLoginOTP('student')">Verify OTP</button>
+      </div>
+
+      <p class="signup">
+        Don’t have an account? <a href="register.html">Sign up</a>
+      </p>
+    </div>
+
+    <!-- PLACEMENT -->
+    <div class="login-card" id="card-placement">
+      <div class="icon-circle">📋</div>
+      <h3>Placement Cell Coordinator Login</h3>
+
+      <div id="login-form-placement">
+        <input id="placementEmail" type="email" placeholder="Email">
+        <input id="placementPassword" type="password" placeholder="Password">
+        <a class="forgot">Forgot password?</a>
+        <button class="login-btn" onclick="loginUser('placement')">Login</button>
+      </div>
+
+      <div id="otp-form-placement" style="display: none;">
+        <p style="color:var(--text-muted); font-size:0.9rem;">Enter OTP sent to email</p>
+        <input id="otp-input-placement" type="text" placeholder="6-digit OTP"
+          style="text-align:center; letter-spacing:3px;">
+        <button class="login-btn" onclick="verifyLoginOTP('placement')">Verify OTP</button>
+      </div>
+
+      <p class="signup">
+        Don’t have an account? <a href="register.html">Sign up</a>
+      </p>
+    </div>
+
+    <!-- COMPANY -->
+    <div class="login-card" id="card-company">
+      <div class="icon-circle">🏢</div>
+      <h3>Company Login</h3>
+
+      <div id="login-form-company">
+        <input id="companyEmail" type="email" placeholder="Email">
+        <input id="companyPassword" type="password" placeholder="Password">
+        <a class="forgot">Forgot password?</a>
+        <button class="login-btn" onclick="loginUser('company')">Login</button>
+      </div>
+
+      <div id="otp-form-company" style="display: none;">
+        <p style="color:var(--text-muted); font-size:0.9rem;">Enter OTP sent to email</p>
+        <input id="otp-input-company" type="text" placeholder="6-digit OTP"
+          style="text-align:center; letter-spacing:3px;">
+        <button class="login-btn" onclick="verifyLoginOTP('company')">Verify OTP</button>
+      </div>
+
+      <p class="signup">
+        Don’t have an account? <a href="register.html">Sign up</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+  <script src="login.js"></script>
+
+</body>
+
+</html>

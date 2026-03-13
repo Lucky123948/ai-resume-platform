@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="form-container">
+
+    <h2>Create Account</h2>
+
+    <!-- ROLE -->
+    <div class="role-box">
+      <button type="button" class="role-btn active" onclick="setRole('student',this)">Student</button>
+      <button type="button" class="role-btn" onclick="setRole('placement',this)">Placement</button>
+      <button type="button" class="role-btn" onclick="setRole('company',this)">Company</button>
+    </div>
+
+    <form id="registerForm">
+
+      <!-- Hidden Role Input -->
+      <input type="hidden" id="role" value="student">
+
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+
+      <!-- Password -->
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Password" required>
+        <span class="eye" onclick="toggle('password')">👁</span>
+      </div>
+
+      <div id="strengthText" class="error-text">Weak password ❌</div>
+
+      <!-- Confirm -->
+      <div class="password-box">
+        <input type="password" id="confirm" placeholder="Confirm Password" required>
+        <span class="eye" onclick="toggle('confirm')">👁</span>
+      </div>
+
+      <!-- OTP Verify Section (Hidden by default) -->
+      <div id="otpSection" style="display: none; margin-top: 20px; border-top: 1px solid #334155; padding-top: 20px;">
+        <p style="color: var(--text-light); margin-bottom: 10px;">Enter the 6-digit OTP sent to your email.</p>
+        <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6"
+          style="letter-spacing: 5px; text-align: center; font-size: 1.2rem;">
+        <button type="button" class="primary-btn" onclick="verifyOTP()">Verify & Create Account 🚀</button>
+      </div>
+
+      <button type="submit" id="regBtn" class="primary-btn">Get OTP & Register</button>
+
+      <p class="switch-text">
+        Already have account? <a href="login.html">Login</a>
+      </p>
+
+    </form>
+  </div>
+
+  <script>
+    function setRole(r, btn) {
+      document.getElementById("role").value = r;
+      document.querySelectorAll(".role-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function toggle(id) {
+      const f = document.getElementById(id);
+      f.type = f.type === "password" ? "text" : "password";
+    }
+
+    /* -------- PASSWORD STRENGTH CHECK -------- */
+    const password = document.getElementById("password");
+    const strengthText = document.getElementById("strengthText");
+
+    password.addEventListener("input", () => {
+      const p = password.value;
+
+      const strong =
+        p.length >= 8 &&
+        /[A-Z]/.test(p) &&
+        /[a-z]/.test(p) &&
+        /[0-9]/.test(p) &&
+        /[^A-Za-z0-9]/.test(p);
+
+      strengthText.textContent = strong ? "Strong password 💪" : "Weak password ❌";
+      strengthText.style.color = strong ? "lightgreen" : "red";
+    });
+
+    /* -------- REGISTER -------- */
+    // Keep UI helper functions
+    // The form submission is handled by register.js
+  </script>
+  <script src="./register.js"></script>
+</body>
+
+</html>

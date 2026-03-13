@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Company Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <div class="dash-header">
+      <h2>Company Recruitment Dashboard</h2>
+    </div>
+
+    <!-- Upload Excel -->
+    <div class="card">
+      <h3>Upload Candidates Excel</h3>
+      <input type="file" id="excel" accept=".xlsx,.xls">
+    </div>
+
+    <!-- Upload Job PDF -->
+    <div class="card">
+      <h3>Upload Job Description (PDF)</h3>
+      <input type="file" id="job" accept=".pdf">
+    </div>
+
+    <button class="primary-btn" onclick="analyzeCompany()">
+      Analyze Candidates
+    </button>
+
+    <!-- Results -->
+    <div class="card">
+      <h3>Matched Candidates</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Match %</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="companyTable">
+          <tr>
+            <td colspan="3" style="text-align:center">No analysis yet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="company.js"></script>
+</body>
+
+</html>

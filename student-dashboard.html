@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="dash-header">
+      <h2>AI Resume Analysis Result</h2>
+      <p>Your ATS compatibility insights</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <p class="muted">ATS Score</p>
+        <div class="big" id="atsScore"></div>
+      </div>
+
+      <div class="card">
+        <p class="muted">Predicted Role</p>
+        <div class="big" id="role"></div>
+      </div>
+
+      <div class="card">
+        <p class="muted">Match Percentage</p>
+        <div class="big" id="percent"></div>
+      </div>
+
+      <div class="card">
+        <p class="muted">Missing Skills</p>
+        <div class="big" id="count"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 25px;">
+      <h3>Missing Skills</h3>
+      <ul id="missing"></ul>
+    </div>
+
+    <div class="card">
+      <h3>Recommended Learning</h3>
+      <ul id="learning"></ul>
+    </div>
+
+  </div>
+
+  <script>
+    const raw = localStorage.getItem("analysisResult");
+
+    if (!raw) {
+      alert("No analysis data found. Please analyze resume first.");
+      window.location.href = "resume.html";
+    }
+
+    const data = JSON.parse(raw);
+
+    // Safe fallback values
+    document.getElementById("atsScore").innerText =
+      (data.atsScore !== undefined ? data.atsScore : (data.percentage || 0)) + "/100";
+
+    document.getElementById("role").innerText =
+      data.role || "Not detected";
+
+    document.getElementById("percent").innerText =
+      (data.percentage !== undefined ? data.percentage : 0) + "%";
+
+    document.getElementById("count").innerText =
+      data.missingSkills ? data.missingSkills.length : 0;
+
+
+    // Missing skills list
+    const missingList = document.getElementById("missing");
+    missingList.innerHTML = "";
+
+    (data.missingSkills || []).forEach(skill => {
+      missingList.innerHTML += `<li>${skill}</li>`;
+    });
+
+
+    // Learning links
+    const learningList = document.getElementById("learning");
+    learningList.innerHTML = "";
+
+    (data.learning || []).forEach(item => {
+      learningList.innerHTML +=
+        `<li><a href="${item.link}" target="_blank">${item.skill}</a></li>`;
+    });
+  </script>
+
+</body>
+
+</html>
